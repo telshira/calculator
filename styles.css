@@ -18,6 +18,7 @@ body {
   align-items: center;
   justify-content: space-between;
   overflow: hidden;
+  background: url("./images/background.jpg");
 }
 
 header, footer {
@@ -166,50 +167,50 @@ span:hover, #clearAllBtn > span:hover{
 }
 
 #onOffBtn:hover{
-    background: rgb(14, 44, 128);
-    color: white;
-  }
+  background: rgb(14, 44, 128);
+  color: white;
+}
   
-  #onOffBtn > span:hover{
-    background: rgb(52, 89, 255);
-  }
+#onOffBtn > span:hover{
+  background: rgb(52, 89, 255);
+}
 
-  #clearAllBtn{
-    background: rgb(216, 102, 9);
-    color: white;
-  }
+#clearAllBtn{
+  background: rgb(216, 102, 9);
+  color: white;
+}
   
-  #clearAllBtn > span {
-    background: rgb(255, 172, 47);
-  }
+#clearAllBtn > span {
+  background: rgb(255, 172, 47);
+}
 
-  .operatorBtn {
-    background: rgb(37, 37, 37);
-    color: white;
-  }
+.operatorBtn {
+  background: rgb(37, 37, 37);
+  color: white;
+}
 
-  .operatorBtn > span {
-    background: rgb(124, 122, 122);
-  }
+.operatorBtn > span {
+  background: rgb(124, 122, 122);
+}
 
-  .operatorBtn > span:hover {
-    background:rgb(223, 48, 17);
-  }
+.operatorBtn > span:hover {
+  background:rgb(223, 48, 17);
+ }
 
-  #equalsBtn{
-    background: rgb(100, 192, 199);
-    color: black;
-  }
+#equalsBtn{
+  background: rgb(100, 192, 199);
+  color: black;
+}
   
-  #equalsBtn > span {
-    background: rgb(150, 239, 255);
-  }
-  
-  #equalsBtn:hover{
-      background:  rgb(112, 7, 3);
-      color: white;
-    }
+#equalsBtn > span {
+  background: rgb(150, 239, 255);
+}
+ 
+#equalsBtn:hover {
+  background:  rgb(112, 7, 3);
+  color: white;
+}
     
-    #equalsBtn > span:hover {
-      background: rgb(223, 48, 17);
-    }
+#equalsBtn > span:hover {
+  background: rgb(223, 48, 17);
+}
