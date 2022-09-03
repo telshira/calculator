@@ -11,14 +11,14 @@ function toggleOnOff(e) {
     onOffBtn.disabled = true;  //disable on/off buton while animation runs
     setTimeout(() => {    
       onOffBtn.disabled = false;
-    }, 3000);
+    }, 2500);
     screen.setAttribute('style', 'background: rgb(105, 145, 105)');
     resultScrn.classList.add("run-animation");
     setTimeout(() => { 
       resultScrn.textContent = "0";
       resultScrn.classList.remove("run-animation");
       void resultScrn.offsetWidth; //resets animation to run again   
-    }, 2600);
+    }, 2100);
     resultScrn.setAttribute('style', "opacity:50%");
     onOffBtn.innerHTML = '<span> OFF </span>';
     onOffBtn.style.background = 'rgb(112, 7, 3)';
@@ -63,6 +63,7 @@ function resetCalc() {
   isOperator = false;
   result = '';
   resultScrn.textContent = '0';
+  resultScrn.removeAttribute('style');
   operatorScrn.textContent = '';
   numbersBtn.forEach(button => button.disabled = false);
   decimalBtn.disabled = false;
@@ -117,6 +118,7 @@ function getNumbersForCalc(e){
           tempNum = tempArray.slice(0, tempArray.length-1).join("");
           if (tempNum !== "")  
             numbers.push(tempNum);
+            console.log(numbers);
           if (keyValue === "="){
             operatorBtn.forEach(button => button.disabled = false);
             numbersBtn.forEach(button => button.disabled = true);
@@ -141,7 +143,12 @@ function changeTopScreen() {
     else 
       operatorScrn.textContent = parseFloat(tempArray.join(""));
   } else if (numbers[0] && operator[0] && tempArray[0]) {
-    operatorScrn.textContent = `${parseFloat(numbers[0])} ${operator[0]} ${parseFloat(tempArray.join(""))} =`; 
+    if (tempArray.length > 10) 
+      operatorScrn.textContent = `${parseFloat(numbers[0]).toExponential(8)} ${operator[0]} ${parseFloat(tempArray.join("")).toExponential(10)} =`;
+    else if (numbers[0].length > 10 && tempArray.length < 10) {
+      operatorScrn.textContent = `${parseFloat(numbers[0]).toExponential(8)} ${operator[0]} ${parseFloat(tempArray.join(""))} =`;
+    } else 
+    operatorScrn.textContent = `${parseFloat(numbers[0]).toFixed(4)} ${operator[0]} ${parseFloat(tempArray.join(""))} =`;
   } else if (numbers[0] && operator[0])
   operatorScrn.textContent = `${parseFloat(numbers[0])} ${operator[0]} =`
 }
@@ -173,15 +180,15 @@ function operations(){
   if(isPower){
     switch(keyArray[0]){
       case "+":
-        result = (parseFloat(numbers[0]) + parseFloat(numbers[1])).toFixed(3);
+        result = (parseFloat(numbers[0]) + parseFloat(numbers[1])).toFixed(4);
       break
        
       case "-":
-        result = (parseFloat(numbers[0]) - parseFloat(numbers[1])).toFixed(3);
+        result = (parseFloat(numbers[0]) - parseFloat(numbers[1])).toFixed(4);
       break;
 
       case "*":
-        result = ((parseFloat(numbers[0]) * parseFloat(numbers[1]))).toFixed(3);
+        result = ((parseFloat(numbers[0]) * parseFloat(numbers[1]))).toFixed(4);
       break;
 
       case "/":
@@ -191,15 +198,25 @@ function operations(){
             resultScrn.textContent = "Restarting";
             setTimeout(() =>{
               resetCalc();
-              resultScrn.removeAttribute('style');
             }, 2000)
           }, 1500);
         } else 
-          result = ((parseFloat(numbers[0])/parseFloat(numbers[1])).toFixed(3));
+          result = ((parseFloat(numbers[0])/parseFloat(numbers[1])).toFixed(4));
       break;
 
       case "nPower":
-        result = Math.pow(parseFloat(numbers[0]), parseFloat(numbers[1])).toFixed(3);
+        if (parseFloat(numbers[0]) < 0) {  //error when Npower is between 0 and 1
+          if (parseFloat(numbers[1]) > 0 && parseFloat(numbers[1]) < 1){
+            result = "NaN"
+            setTimeout(() => {
+              resultScrn.textContent = "Restarting";
+              setTimeout(() =>{
+                resetCalc();
+              }, 2000)
+            }, 1500);
+          }
+        } else
+          result = Math.pow(parseFloat(numbers[0]), parseFloat(numbers[1])).toFixed(4);
       break;
      }
     }
@@ -211,7 +228,7 @@ function sqRoot() {
    return;
   else {
     operatorScrn.innerHTML = `${sqRootBtn.textContent}${numbers[0]}`;
-    result = Math.sqrt(parseFloat(numbers[0])).toFixed(3);
+    result = Math.sqrt(parseFloat(numbers[0])).toFixed(4);
     resultScrn.setAttribute('style', 'color: black; opacity: 1');
     if (result === "NaN") {
       resultScrn.textContent = "NaN";
@@ -219,7 +236,6 @@ function sqRoot() {
         resultScrn.textContent = "Restarting";
         setTimeout(() =>{
           resetCalc();
-          resultScrn.removeAttribute('style');
         }, 2000)
       }, 1500);
     } else {
@@ -243,7 +259,6 @@ decimalBtn.addEventListener('click', () =>{
 })
 
 const plusMinusBtn = document.getElementById('plusMinusBtn');
-
 plusMinusBtn.addEventListener("click", () => {
   if (tempArray){
     if (parseFloat(tempArray.join('')) > 0){
