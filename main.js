@@ -118,7 +118,6 @@ function getNumbersForCalc(e){
           tempNum = tempArray.slice(0, tempArray.length-1).join("");
           if (tempNum !== "")  
             numbers.push(tempNum);
-            console.log(numbers);
           if (keyValue === "="){
             operatorBtn.forEach(button => button.disabled = false);
             numbersBtn.forEach(button => button.disabled = true);
@@ -144,7 +143,7 @@ function changeTopScreen() {
       operatorScrn.textContent = parseFloat(tempArray.join(""));
   } else if (numbers[0] && operator[0] && tempArray[0]) {
     if (tempArray.length > 10) 
-      operatorScrn.textContent = `${parseFloat(numbers[0]).toExponential(8)} ${operator[0]} ${parseFloat(tempArray.join("")).toExponential(10)} =`;
+      operatorScrn.textContent = `${parseFloat(numbers[0]).toExponential(8)} ${operator[0]} ${parseFloat(tempArray.join("")).toExponential(8)} =`;
     else if (numbers[0].length > 10 && tempArray.length < 10) {
       operatorScrn.textContent = `${parseFloat(numbers[0]).toExponential(8)} ${operator[0]} ${parseFloat(tempArray.join(""))} =`;
     } else 
