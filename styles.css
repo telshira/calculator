@@ -30,15 +30,15 @@ header, footer {
 
 header {
   font-size: 30px;
-  color: black;
+  color: white;
   font-weight: 900;
 }
 
 footer {
-  font-size: 15px;
-  color: darkslategray;
+  font-size: 20px;
+  color: rgb(232, 241, 241);
   font-style: italic;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 #calcCont {
@@ -87,7 +87,6 @@ footer {
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 1fr;
   background: black;
-  opacity: 75%;
   box-shadow: inset 3px 3px rgba(87, 86, 86, 0.8);
   font-family: 'digital-font';
   text-align: end;
@@ -101,6 +100,17 @@ footer {
 .screen-bottom{
   font-size: 3.6em;
   color: rgba(0, 0, 0, 0.4);
+}
+
+.run-animation{
+  animation: typing 2s steps(25, end);
+}
+
+@keyframes typing {
+  from {
+    width: 0}
+  to {
+    width: 100%}
 }
 
 .bottom {

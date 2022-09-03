@@ -8,8 +8,17 @@ function toggleOnOff(e) {
   e.preventDefault();
   if (!isPower){
     isPower = true;
-    screen.setAttribute('style', 'background: rgb(105, 145, 105); opacity: 100%');
-    resultScrn.textContent = "0";
+    onOffBtn.disabled = true;  //disable on/off buton while animation runs
+    setTimeout(() => {    
+      onOffBtn.disabled = false;
+    }, 3000);
+    screen.setAttribute('style', 'background: rgb(105, 145, 105)');
+    resultScrn.classList.add("run-animation");
+    setTimeout(() => { 
+      resultScrn.textContent = "0";
+      resultScrn.classList.remove("run-animation");
+      void resultScrn.offsetWidth; //resets animation to run again   
+    }, 2600);
     resultScrn.setAttribute('style', "opacity:50%");
     onOffBtn.innerHTML = '<span> OFF </span>';
     onOffBtn.style.background = 'rgb(112, 7, 3)';
@@ -18,9 +27,10 @@ function toggleOnOff(e) {
     onOffBtnSpan.style.color = 'white';
   } else {
     isPower = false;
-    screen.setAttribute('style', 'background:black; opacity: 75%');
+    screen.setAttribute('style', 'background:black');
     resetCalc();
     resultScrn.removeAttribute('style');
+    resultScrn.textContent = "HELLO!"
     onOffBtn.removeAttribute('style');
     onOffBtn.innerHTML = '<span> ON </span>';
     let onOffBtnSpan = document.querySelector('#onOffBtn > span');
@@ -147,6 +157,8 @@ function deleteCurr() {
   if (tempArray.length === 0){ //delete current operation if messed up
     operator.length = 0;
     keyArray.length = 0;
+    operatorScrn.textContent = `${numbers[0]}`;
+    resultScrn.textContent = '';
   } else {
     tempArray.length = 0;
   }
@@ -176,7 +188,11 @@ function operations(){
         if (numbers[1] === "0") {  //resets calculator after 1.5s if error from dividing by 0
           result = "Error"
           setTimeout(() => {
-            resetCalc();
+            resultScrn.textContent = "Restarting";
+            setTimeout(() =>{
+              resetCalc();
+              resultScrn.removeAttribute('style');
+            }, 2000)
           }, 1500);
         } else 
           result = ((parseFloat(numbers[0])/parseFloat(numbers[1])).toFixed(3));
@@ -196,10 +212,15 @@ function sqRoot() {
   else {
     operatorScrn.innerHTML = `${sqRootBtn.textContent}${numbers[0]}`;
     result = Math.sqrt(parseFloat(numbers[0])).toFixed(3);
+    resultScrn.setAttribute('style', 'color: black; opacity: 1');
     if (result === "NaN") {
       resultScrn.textContent = "NaN";
       setTimeout(() => {
-        resetCalc();
+        resultScrn.textContent = "Restarting";
+        setTimeout(() =>{
+          resetCalc();
+          resultScrn.removeAttribute('style');
+        }, 2000)
       }, 1500);
     } else {
       tempArray.length = 0;
@@ -219,4 +240,17 @@ decimalBtn.addEventListener('click', () =>{
     return;
   } else
     tempArray.push(".");
+})
+
+const plusMinusBtn = document.getElementById('plusMinusBtn');
+
+plusMinusBtn.addEventListener("click", () => {
+  if (tempArray){
+    if (parseFloat(tempArray.join('')) > 0){
+      tempArray.unshift("-");
+    } else{
+      tempArray.shift();
+    }
+  }
+  changeTopScreen();
 })
