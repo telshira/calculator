@@ -144,12 +144,13 @@ span {
  transform: translateY(-5px);
 }
 
-span:hover, #clearAllBtn > span:hover{
+span:hover, #clearAllBtn > span:hover, .operatorBtn > span:hover,
+#equalsBtn > span:hover {
  background: rgb(223, 48, 17);
  color: white;
 }
 
-.calc-button:hover, #clearAllBtn:hover{
+.calc-button:hover, #clearAllBtn:hover, #equalsBtn:hover {
  background: rgb(112, 7, 3);
 }
 
@@ -193,10 +194,6 @@ span:hover, #clearAllBtn > span:hover{
   background: rgb(124, 122, 122);
 }
 
-.operatorBtn > span:hover {
-  background:rgb(223, 48, 17);
- }
-
 #equalsBtn{
   background: rgb(100, 192, 199);
   color: black;
@@ -206,11 +203,6 @@ span:hover, #clearAllBtn > span:hover{
   background: rgb(150, 239, 255);
 }
  
-#equalsBtn:hover {
-  background:  rgb(112, 7, 3);
-  color: white;
-}
-    
-#equalsBtn > span:hover {
-  background: rgb(223, 48, 17);
+.numbers:disabled, #decimalBtn:disabled {
+  color: black;
 }
