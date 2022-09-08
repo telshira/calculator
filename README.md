@@ -12,8 +12,8 @@ A project made using CSS, HTML & JavaScript as part of The Odin Project.
 <h3><u>Live Preview:</u></h3> <a href="https://telshira.github.io/calculator/"><img src="./images/calculator.png"></a>
 <br>
 <br>
-<h3><u>Repo:</u></h3> <a>https://github.com/telshira/calculator</a>
+<h3><u>Repo:</u></h3> <a href="https://github.com/telshira/calculator">https://github.com/telshira/calculator</a>
 <br>
 <br>
 Background Img Source:<br>
-<a>https://pngtree.com/freebackground/blue-lines-futuristic-technology-background_955818.html</a>
+<a href="https://pngtree.com/freebackground/blue-lines-futuristic-technology-background_955818.html">https://pngtree.com/freebackground/blue-lines-futuristic-technology-background_955818.html</a>
