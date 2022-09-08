@@ -101,7 +101,6 @@ function updateResult(){
   keyArray.shift();
   numbers.length = 0;
   numbers.push(result);
-  console.log(result.toString().length)
   if (result.toString().length > 14){ // so result will not go past bottom screen container
     result = parseFloat(result).toPrecision(8);
     resultScrn.textContent = result;
@@ -243,8 +242,8 @@ function sqRoot() {
     operatorScrn.innerHTML = `${sqRootBtn.textContent}${numbers[0]}`;
     result = Math.sqrt(parseFloat(numbers[0]));
     resultScrn.setAttribute('style', 'color: black; opacity: 1');
-    if (result === "NaN") {
-      resultScrn.textContent = "NaN";
+    if (isNaN(result)) {
+      resultScrn.textContent = "ERROR";
       setTimeout(() => {
         resultScrn.textContent = "Restarting";
         setTimeout(() =>{
