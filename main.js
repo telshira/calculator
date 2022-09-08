@@ -100,11 +100,15 @@ function updateResult(){
   operator.shift();
   keyArray.shift();
   numbers.length = 0;
-  if (result.length > 14)  // so result will not go past bottom screen container
-  result = parseFloat(result).toPrecision(8);
   numbers.push(result);
+  console.log(result.toString().length)
+  if (result.toString().length > 14){ // so result will not go past bottom screen container
+    result = parseFloat(result).toPrecision(8);
+    resultScrn.textContent = result;
+  } else { 
+    resultScrn.textContent = result;
+  }
   resultScrn.setAttribute('style', 'color: black; opacity: 1');
-  resultScrn.textContent = result;
   result = '';
 }
 
@@ -144,10 +148,10 @@ function changeTopScreen() {
   } else if (numbers[0] && operator[0] && tempArray[0]) {
     if (tempArray.length > 10) 
       operatorScrn.textContent = `${parseFloat(numbers[0]).toExponential(8)} ${operator[0]} ${parseFloat(tempArray.join("")).toExponential(8)} =`;
-    else if (numbers[0].length > 10 && tempArray.length < 10) {
+    else if (numbers[0].toString().length > 10) {
       operatorScrn.textContent = `${parseFloat(numbers[0]).toExponential(8)} ${operator[0]} ${parseFloat(tempArray.join(""))} =`;
     } else 
-    operatorScrn.textContent = `${parseFloat(numbers[0]).toFixed(4)} ${operator[0]} ${parseFloat(tempArray.join(""))} =`;
+    operatorScrn.textContent = `${parseFloat(numbers[0]).toFixed(2)} ${operator[0]} ${parseFloat(tempArray.join(""))} =`;
   } else if (numbers[0] && operator[0])
   operatorScrn.textContent = `${parseFloat(numbers[0])} ${operator[0]} =`
 }
@@ -179,15 +183,15 @@ function operations(){
   if(isPower){
     switch(keyArray[0]){
       case "+":
-        result = (parseFloat(numbers[0]) + parseFloat(numbers[1])).toFixed(4);
+        result = parseFloat(numbers[0]) + parseFloat(numbers[1]);
       break
        
       case "-":
-        result = (parseFloat(numbers[0]) - parseFloat(numbers[1])).toFixed(4);
+        result = parseFloat(numbers[0]) - parseFloat(numbers[1]);
       break;
 
       case "*":
-        result = ((parseFloat(numbers[0]) * parseFloat(numbers[1]))).toFixed(4);
+        result = parseFloat(numbers[0]) * parseFloat(numbers[1]);
       break;
 
       case "/":
@@ -200,7 +204,7 @@ function operations(){
             }, 2000)
           }, 1500);
         } else 
-          result = ((parseFloat(numbers[0])/parseFloat(numbers[1])).toFixed(4));
+          result = (parseFloat(numbers[0])/parseFloat(numbers[1]));
       break;
 
       case "nPower":
@@ -214,8 +218,17 @@ function operations(){
               }, 2000)
             }, 1500);
           }
-        } else
-          result = Math.pow(parseFloat(numbers[0]), parseFloat(numbers[1])).toFixed(4);
+        } else{
+          result = Math.pow(parseFloat(numbers[0]), parseFloat(numbers[1]));
+          if (result === Infinity){
+            setTimeout(() => {
+              resultScrn.textContent = "Restarting";
+              setTimeout(() =>{
+                resetCalc();
+              }, 2000)
+            }, 1500);
+          }
+        }
       break;
      }
     }
@@ -227,7 +240,7 @@ function sqRoot() {
    return;
   else {
     operatorScrn.innerHTML = `${sqRootBtn.textContent}${numbers[0]}`;
-    result = Math.sqrt(parseFloat(numbers[0])).toFixed(4);
+    result = Math.sqrt(parseFloat(numbers[0]));
     resultScrn.setAttribute('style', 'color: black; opacity: 1');
     if (result === "NaN") {
       resultScrn.textContent = "NaN";
