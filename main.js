@@ -217,7 +217,8 @@ function operations(){
                 resetCalc();
               }, 2000)
             }, 1500);
-          }
+          } else 
+            result = Math.pow(parseFloat(numbers[0]), parseFloat(numbers[1]));
         } else{
           result = Math.pow(parseFloat(numbers[0]), parseFloat(numbers[1]));
           if (result === Infinity){
